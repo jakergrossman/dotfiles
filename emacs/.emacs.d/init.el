@@ -28,7 +28,7 @@
 ;; lexical binding by default, must be delayed since
 ;; Emacs sets this to NIL after initialization
 (run-at-time 0 nil (lambda ()
-		     (setq-default lexical-binding t)))
+                     (setq-default lexical-binding t)))
 
 ;; tabs are scary
 (setq-default indent-tabs-mode nil)
@@ -69,9 +69,20 @@
 (when (version<= "29.1" emacs-version)
   (pixel-scroll-precision-mode))
 
-(bind-keys
- :map global-map
- ("C-c x" . kill-this-buffer))
+(bind-keys :map global-map
+           ("C-c x" . kill-current-buffer))
+
+(use-package whitespace
+  :config
+  (global-whitespace-mode t)
+  :custom
+  (whitespace-style '(face tabs tab-mark spaces space-mark trailing))
+  (whitespace-display-mappings '((space-mark   ?\     [?\u00B7]     [?.])
+                                 (space-mark   ?\xA0  [?\u00A4]     [?_])
+                                 (tab-mark     ?\t    [?\u00BB ?\t] [?\\ ?\t])))
+  :custom-face
+  (whitespace-space ((t (:foreground "gray30" :background unspecified))))
+  (whitespace-tab ((t (:foreground "gray30" :background unspecified)))))
 
 (use-package magit :defer)
 
