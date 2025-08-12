@@ -41,7 +41,7 @@
 
 ;; I only care about magit
 (setf vc-handled-backends nil
-      vc-follow-symlink t)
+      vc-follow-symlinks t)
 
 ;; stop scrolling by large chunks!
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
