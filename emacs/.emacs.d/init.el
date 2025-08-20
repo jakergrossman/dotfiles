@@ -86,5 +86,13 @@
 
 (use-package magit :defer)
 
+(use-package dired
+  :ensure nil
+  :config
+  (add-hook 'dired-mode-hook #'toggle-truncate-lines)
+  (setq dired-listing-switches "-alh --group-directories-first"))
+
+
+
 (setf user-full-name "Jake Grossman"
       user-mail-address "jake.grossman@smashingstacks.com")
