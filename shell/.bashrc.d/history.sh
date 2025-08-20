@@ -1,0 +1,4 @@
+# history management
+export HISTCONTROL=ignoreboth
+export HISTSIZE=5000
+export HISTIGNORE="clear:bg:fg:cd:cd -:cd ..:exit:date:w:* --help:ls"
