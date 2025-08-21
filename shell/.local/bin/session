@@ -6,7 +6,7 @@ set -e
 #
 # Usage: session [session_name]
 
-session_dirs=($TMUX_SESSIONIZER_SESSION_DIRS)
+session_dirs=()
 
 # add all arguments to $session_dirs. for each added directory,
 # recursively add directories containing a file '.sessionizer'
@@ -22,22 +22,26 @@ extend_session_dirs () {
     done
 }
 
-extend_session_dirs ~/devel/*/
+extend_session_dirs ${TMUX_SESSIONIZER_DIRS:-~}
 
 if [ "$#" -eq 1 ]; then
-    session="${1}"
+    session="$(find "${session_dirs[@]}" -mindepth 1 -maxdepth 1 -type d -name "${1}")"
 else
+    which fzf 2>/dev/null || echo "fzf not on PATH, can't interactively sessionize..." && exit
     session="$(find "${session_dirs[@]}" -mindepth 1 -maxdepth 1 -type d | fzf)"
 fi
 
+
 if [ -z "${session}" ]; then
+    echo no session
     exit 0
 fi
 
-session_name="$(basename "$session" | tr . _)"
-tmux_running="$(pgrep tmux)"
 
-if [ -z "${TMUX}${tmux_running}" ]; then
+session_name="$(basename "$session" | tr . _)"
+
+if [ -z "${TMUX}" ] && [ -z "$(pgrep tmux)" ]; then
+    set -x
     tmux new-session -s "${session_name}" -c "${session}"
     exit 0
 fi
