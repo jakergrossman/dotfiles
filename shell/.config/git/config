@@ -1,15 +1,9 @@
 [alias]
-    # shorter commands
-    a  = add
-    co = checkout
-    ci = commit
-    st = status
-    br = branch
     hist = log --oneline --all --decorate --graph
     other = ls-files --others --exclude-from=.gitignore
 
 [user]
-    email = jake.r.grossman@gmail.com
+    email = jake.grossman@smashingstacks.com
     name = jakergrossman
 
 [init]
