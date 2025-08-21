@@ -1,0 +1,1 @@
+export TMUX_SESSIONIZER_DIRS="$HOME/stuff"
