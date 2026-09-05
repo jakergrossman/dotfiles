@@ -64,7 +64,7 @@ augroup rc
     autocmd ColorScheme * highlight Whitespace guibg=NONE
 augroup END
 try
-    colorscheme meh
+    colorscheme retrobox
 catch
 endtry
 
